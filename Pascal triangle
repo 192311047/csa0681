@@ -1,0 +1,30 @@
+#include <stdio.h>
+void printPascalTriangle(int numRows) {
+    int triangle[numRows][numRows];
+    for (int line = 0; line < numRows; line++) {
+        for (int i = 0; i <= line; i++) {
+            if (i == 0 || i == line) {
+                triangle[line][i] = 1;
+            } else {
+                triangle[line][i] = triangle[line - 1][i - 1] + triangle[line - 1][i];
+            }
+        }
+    }
+    for (int line = 0; line < numRows; line++) {
+        for (int space = 0; space < numRows - line - 1; space++) {
+            printf(" ");
+        }
+        for (int i = 0; i <= line; i++) {
+            printf("%d ", triangle[line][i]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int numRows = 5;
+    printf("Pascal's Triangle for %d rows:\n", numRows);
+    printPascalTriangle(numRows);
+
+    return 0;
+}
