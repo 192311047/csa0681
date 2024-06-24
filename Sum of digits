@@ -1,0 +1,37 @@
+#include <stdio.h>
+int sumOfDigits(int num) {
+    int sum = 0;
+    while (num > 0) {
+        sum += num % 10;
+        num /= 10;
+    }
+    return sum;
+}
+int maxSumOfEqualDigitSums(int nums[], int size) {
+    int maxSum = -1;
+    int digitSums[100] = {0}; 
+    for (int i = 0; i < size; i++) {
+        int digitSum = sumOfDigits(nums[i]);
+        if (digitSums[digitSum] > 0) {
+            int currentSum = digitSums[digitSum] + nums[i];
+            if (currentSum > maxSum) {
+                maxSum = currentSum;
+            }
+        }
+        if (nums[i] > digitSums[digitSum]) {
+            digitSums[digitSum] = nums[i];
+        }
+    return maxSum;
+}
+int main() {
+    int nums[] = {51, 32, 43};
+    int size = sizeof(nums) / sizeof(nums[0]);
+    int result = maxSumOfEqualDigitSums(nums, size);
+    if (result != -1) {
+        printf("The maximum value of nums[i] + nums[j] is %d\n", result);
+    } else {
+        printf("No two numbers have the same sum of digits.\n");
+    }
+
+    return 0;
+}
