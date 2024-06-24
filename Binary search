@@ -1,0 +1,39 @@
+#include <stdio.h>
+int binarySearch(int nums[], int size, int target) {
+    int left = 0;
+    int right = size - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] == target) {
+            return mid;
+        }
+        if (nums[mid] < target) {
+            left = mid + 1;
+        }
+        else {
+            right = mid - 1;
+        }
+    }
+    return -1;
+}
+int main() {
+    int nums1[] = {1, 2, 3, 4, 5};
+    int target1 = 3;
+    
+    int nums2[] = {10, 20, 30, 40, 50};
+    int target2 = 25;
+    
+    int nums3[] = {-10, -5, 0, 5, 10};
+    int target3 = 5;
+
+    int index1 = binarySearch(nums1, 5, target1);
+    printf("Index of %d: %d\n", target1, index1);
+
+    int index2 = binarySearch(nums2, 5, target2);
+    printf("Index of %d: %d\n", target2, index2);
+
+    int index3 = binarySearch(nums3, 5, target3);
+    printf("Index of %d: %d\n", target3, index3);
+
+    return 0;
+}
