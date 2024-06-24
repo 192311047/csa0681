@@ -1,0 +1,50 @@
+#include <stdio.h>
+struct MinMax {
+    int min;
+    int max;
+};
+struct MinMax findMinMax(int arr[], int low, int high) {
+    struct MinMax mm, left_mm, right_mm;
+    int mid;
+    if (low == high) {
+        mm.min = arr[low];
+        mm.max = arr[low];
+        return mm;
+    }
+    if (high == low + 1) {
+        if (arr[low] < arr[high]) {
+            mm.min = arr[low];
+            mm.max = arr[high];
+        } else {
+            mm.min = arr[high];
+            mm.max = arr[low];
+        }
+        return mm;
+    }
+    mid = (low + high) / 2;
+    left_mm = findMinMax(arr, low, mid);
+    right_mm = findMinMax(arr, mid + 1, high);
+    if (left_mm.min < right_mm.min)
+        mm.min = left_mm.min;
+    else
+        mm.min = right_mm.min;
+    if (left_mm.max > right_mm.max)
+        mm.max = left_mm.max;
+    else
+        mm.max = right_mm.max;
+    return mm;
+}
+
+int main() {
+    int arr[] = {7, 3, 15, 9, 2, 11, 17, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    // Find minimum and maximum using divide and conquer
+    struct MinMax result = findMinMax(arr, 0, n - 1);
+
+    // Print the results
+    printf("Minimum element in array: %d\n", result.min);
+    printf("Maximum element in array: %d\n", result.max);
+
+    return 0;
+}
